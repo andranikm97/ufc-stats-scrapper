@@ -26,19 +26,8 @@ module.exports = {
         use: ['babel-loader']
       },
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              sourceMap: true
-            }
-          }
-        ]
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
       }
     ]
   },
