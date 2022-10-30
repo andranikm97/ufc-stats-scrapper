@@ -42,8 +42,8 @@ router.get('/search_fighter', async (req, res) => {
       });
     }
   })
-  res.json({ data: fighters });
-})
+  res.json(fighters);
+});
 
 const colIndexToProperty = {
   0: 'firstname',
