@@ -5,7 +5,7 @@ const port = process.env.PORT || 4000;
 
 module.exports = {
   mode: 'development',
-  entry: './src/main.js',
+  entry: './src/main.ts',
   output: {
     filename: '[name].[hash].js',
     publicPath: '/'
@@ -26,9 +26,19 @@ module.exports = {
         use: ['babel-loader']
       },
       {
+        test: /\.ts$/,
+        use: [{
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true
+          }
+        }],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
-      }
+      },
     ]
   },
   plugins: [
