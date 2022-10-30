@@ -4,12 +4,18 @@ const cheerio = require('cheerio');
 const pretty = require('pretty');
 const fetch = require('node-fetch');
 const axios = require('axios');
-
+const cors = require('cors');
+app.use(cors());
 const port = process.env.PORT || 3000;
 // const url = "https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3";
-const url = "http://ufcstats.com/statistics/fighters?page=all";
-app.get('/search-fighter', async (req, res) => {
-  const { data } = await axios.get(url);
+const url = "http://ufcstats.com/statistics/fighters/search";
+app.get('/', async (req, res) => {
+  const { query } = req.query;
+  const { data } = await axios.get(url, {
+    params: {
+      query
+    }
+  });
   const $ = cheerio.load(data);
   const fighterRows = $('.b-statistics__table-row');
   const fighters = [];
@@ -35,6 +41,7 @@ app.get('/search-fighter', async (req, res) => {
   })
   res.json({ data: fighters });
 });
+
 app.listen(port, () => {
   console.log(`Actively listnening on port ${port}`);
 })
