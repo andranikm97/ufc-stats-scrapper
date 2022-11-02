@@ -1,15 +1,9 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+const { scrapePage } = require("./utils/async");
 
 async function searchFighter(req, res) {
   const url = "http://ufcstats.com/statistics/fighters/search";
   const { query } = req.query;
-  const { data } = await axios.get(url, {
-    params: {
-      query
-    }
-  });
-  const $ = cheerio.load(data);
+  const $ = await scrapePage(url, { query });
   const fighterRows = $('.b-statistics__table-row');
   const fighters = [];
 
@@ -42,9 +36,7 @@ async function searchFighter(req, res) {
 async function getFighter(req, res) {
   const { id: fighterId } = req.params;
   const url = "http://ufcstats.com/fighter-details/" + fighterId;
-  const { data } = await axios.get(url);
-
-  const $ = cheerio.load(data);
+  const $ = await scrapePage(url);
   const careerStatsContainer = $('.b-list__box-list.b-list__box-list_margin-top');
   const careerStats = {};
   careerStatsContainer.find('li').each((i, el) => {
