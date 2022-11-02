@@ -96,6 +96,7 @@ async function getFighter(req, res) {
       header: formatText(eventLink.text()),
       link: eventLink.attr('href'),
       date: formatText($(eventDate).text()),
+      isTitleFight: !!$(event).find('img'),
     }
     const method = $(columns[7]).find('p');
     const methodType = formatText($(method[0]).text());
