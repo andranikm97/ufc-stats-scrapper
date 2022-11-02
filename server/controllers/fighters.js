@@ -70,24 +70,24 @@ async function getFighter(req, res) {
       }
     ]
     const KD = $(columns[2]);
-    let [s1, s2] = $(KD).find('p');
-    fight['fighters'][0]['KD'] = formatText($(s1).text());
-    fight['fighters'][1]['KD'] = formatText($(s2).text());
-
     const STR = $(columns[3]);
-    [s1, s2] = $(STR).find('p');
-    fight['fighters'][0]['STR'] = formatText($(s1).text());
-    fight['fighters'][1]['STR'] = formatText($(s2).text());
-
     const TD = $(columns[4]);
-    [s1, s2] = $(TD).find('p');
-    fight['fighters'][0]['TD'] = formatText($(s1).text());
-    fight['fighters'][1]['TD'] = formatText($(s2).text());
-
     const SUB = $(columns[5]);
-    [s1, s2] = $(SUB).find('p');
-    fight['fighters'][0]['SUB'] = formatText($(s1).text());
-    fight['fighters'][1]['SUB'] = formatText($(s2).text());
+
+    fight['stats'] = {
+      [fight['fighters'][0]['id']]: {
+        KD: formatText($($(KD).find('p')[0]).text()),
+        STR: formatText($($(STR).find('p')[0]).text()),
+        TD: formatText($($(TD).find('p')[0]).text()),
+        SUB: formatText($($(SUB).find('p')[0]).text()),
+      },
+      [fight['fighters'][1]['id']]: {
+        KD: formatText($($(KD).find('p')[1]).text()),
+        STR: formatText($($(STR).find('p')[1]).text()),
+        TD: formatText($($(TD).find('p')[1]).text()),
+        SUB: formatText($($(SUB).find('p')[1]).text()),
+      },
+    };
 
     const event = $(columns[6]);
     const eventLink = $(event).find('p a');
