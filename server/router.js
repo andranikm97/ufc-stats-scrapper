@@ -32,7 +32,8 @@ router.get('/search_fighter', async (req, res) => {
           if (anchorTag.length > 0) {
             fighter[colIndexToProperty[colIndex]] = $(anchorTag).text();
             if (!fighter['url']) {
-              fighter['url'] = $(anchorTag).attr('href')
+              fighter['url'] = $(anchorTag).attr('href');
+              fighter['id'] = fighter['url'].split('/').pop();
             };
           } else {
             const columnValue = $column.text().replace('\n', '').trim();
@@ -43,6 +44,25 @@ router.get('/search_fighter', async (req, res) => {
     }
   })
   res.json(fighters);
+});
+
+router.get('/fighter/:id', async (req, res) => {
+  const { id: fighterId } = req.params;
+  const url = "http://ufcstats.com/fighter-details/" + fighterId;
+  const { data } = await axios.get(url);
+
+  const $ = cheerio.load(data);
+  const careerStatsContainer = $('.b-list__box-list.b-list__box-list_margin-top');
+  const careerStats = {};
+  careerStatsContainer.find('li').each((i, el) => {
+    let [_, statName, statValue] = el.children;
+    statName = $(statName).text().replaceAll('\n', '').trim();
+    statValue = $(statValue).text().replaceAll('\n', '').trim()
+    if (statName) {
+      careerStats[statName] = statValue;
+    }
+  })
+  res.send({ careerStats });
 });
 
 const colIndexToProperty = {
