@@ -34,6 +34,8 @@ body {
   width: calc(100% - 80px);
   background-color: white;
   list-style-type: none;
+  overflow: hidden scroll;
+  max-height: 250px;
 }
 
 #dropdown li {
