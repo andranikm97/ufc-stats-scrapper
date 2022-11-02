@@ -125,7 +125,13 @@ router.get('/fighter/:id', async (req, res) => {
     fight['time'] = formatText($(time[0]).text());
     fights.push(fight);
   });
-  res.send({ careerStats, fights });
+
+  const physicalStats = $('.b-list__info-box').first();
+  const DOBcontainer = $(physicalStats).find('li').toArray().pop();
+
+  let [_, __, statValue] = DOBcontainer.children;
+  const DOB = formatText($(statValue).text());
+  res.send({ careerStats, fights, DOB });
 });
 
 function formatText(text) {
