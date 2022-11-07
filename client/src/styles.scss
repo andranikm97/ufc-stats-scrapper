@@ -1,0 +1,73 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: antiquewhite;
+}
+
+main {
+  position: relative;
+  background-color: white;
+}
+
+
+#search_container {
+  position: relative;
+  background-color: black;
+  padding: 40px;
+  width: 300px;
+
+  i {
+    height: 10px;
+    width: 10px;
+    color: black;
+  }
+
+  .chosen-fighter-ct {
+    position: absolute;
+    padding: 20px;
+    background-color: aliceblue;
+
+    &.left {
+      right: 150%;
+    }
+
+    &.right {
+      left: 150%;
+    }
+  }
+
+  #input {
+    height: 30px;
+    width: 100%;
+  }
+
+  #dropdown {
+    margin: 0px;
+    padding: 0px;
+    position: absolute;
+    top: 70%;
+    max-width: 100%;
+    width: calc(100% - 80px);
+    background-color: white;
+    list-style-type: none;
+    overflow: hidden scroll;
+    max-height: 250px;
+
+    li {
+      padding: 5px;
+    }
+
+    li:not(#dropdown li:last-child) {
+      border-bottom: solid 1px black;
+    }
+  }
+}
